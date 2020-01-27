@@ -17,10 +17,34 @@ public class Main {
 //			char[] ch =  (sc.nextLine()).toCharArray();
 //			
 //		}
+		
+		
 		List<String> lines = Files.readAllLines(Paths.get("C:\\Users\\Mindy\\Desktop\\input.txt"));
+		
 		for(String c : lines)
 			System.out.println(c);
-	
-	}
-	
+		
+		System.out.println("HELLO WORLD");
+		System.out.println((lines.get(4)).toCharArray()[1]);
+		System.out.println("ROWS: "+lines.size());
+		int biggest = 0;
+		for(int i = 0 ;i<lines.size(); i++)
+		{
+			int lengthOfRow = ((lines.get(i)).toCharArray()).length;
+			if(lengthOfRow > biggest)
+			{
+				biggest = lengthOfRow;
+			}
+		}
+		System.out.println(biggest);
+		
+		char[][] matrix = new char[lines.size()][biggest];
+		
+		
+		
+		
+		
+	}	
 }
+
+

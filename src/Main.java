@@ -53,6 +53,7 @@ public class Main {
 		
 		printMatrix(matrix);
 		
+		Vector<Vector2D> vecOfVec = new Vector<Vector2D>();
 		//find first dot and check the surrounding and do it over and over again.
 		int biggestRow = 0;
 		int biggestColumn = 0;
@@ -70,24 +71,43 @@ public class Main {
 //					System.out.println(j);
 			        Vector2D v = new Vector2D(i,j);
 			        v.print();
+			        vecOfVec.add(v);
 					dotindex++;
 				}
-				else
-				{
-					dotindex = 0;
-				}
-				if(dotindex>biggestRow)
-				{
-					biggestRow=dotindex;
-				}
-				
-				
+//				else
+//				{
+//					dotindex = 0; 
+//				}
+//				if(dotindex>biggestRow)
+//				{
+//					biggestRow=dotindex;
+//				}
 			}
-			
 		}
 		System.out.println(biggestRow);
+		vecOfVec.get(1).print();
+		Vector<Integer> yPoints = new Vector<Integer>();
+		int index = 1;
+		int saveSpot = -1;
+		for(int i = 1 ; i<vecOfVec.size() ; i++)
+		{
+			//Last vector x and y point
+			int x = (vecOfVec.get(i-1)).x;
+			int y = (vecOfVec.get(i-1)).y;
+			yPoints.add(y);
+			if((vecOfVec.get(i).y)==(y+1) && vecOfVec.get(i).x==x)
+			{
+				index++;
+				yPoints.add(y+1);
+			}
+			else
+			{
+				saveSpot = i;
+			}
+		}
 		
-		
+		System.out.println("adsf" + index);
+		System.out.println(saveSpot);
 		
 		Set<Set <String>> coll = new TreeSet<Set<String>>();
 		

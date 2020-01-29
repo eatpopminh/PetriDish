@@ -94,7 +94,31 @@ public class Main {
 		
 		System.out.println(list);
 		
+		List<Set<Vector2D>> tranlated = new ArrayList<Set<Vector2D>>();
 		
+		for(int i = 0 ; i<list.size() ; i++)
+		{
+			Set<Vector2D> mySet = list.get(i);
+			
+			Vector<Vector2D> v = new Vector<Vector2D>();
+			for(Vector2D vec : mySet)
+			{
+				v.add(vec);
+			}
+			int smallestX = v.get(1).x;
+			int smallestY = v.get(1).y;
+			for(Vector2D v2 : v)
+			{
+				if(v2.x <= smallestX && v2.y <= smallestY)
+				{
+					smallestX = v2.x;
+					smallestY = v2.y;
+				}
+			}
+			System.out.println(smallestX + "/" + smallestY);
+			
+			
+		}
 		
 		
 	}

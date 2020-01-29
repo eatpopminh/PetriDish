@@ -18,9 +18,10 @@ public class Vector2D {
 	{
 		return x+y;
 	}
-	public void print()
+	public String toString()
 	{
-		System.out.println("<" + x + "," + y +  ">");
+		//System.out.println("<" + x + "," + y +  ">");
+		return "<" + x + "," + y +  ">";
 	}
 	
 			

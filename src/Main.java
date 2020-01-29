@@ -41,11 +41,11 @@ public class Main {
 		System.out.println(biggest);
 		
 		//2D matrix
-		char[][] matrix = new char[lines.size()][biggest];
+		char[][] matrix = new char[lines.size()+1][biggest+1];
 		
-		for(int i = 0 ; i< matrix.length ; i++)
+		for(int i = 0 ; i< matrix.length-1 ; i++)
 		{
-			for(int j = 0 ; j <matrix[0].length-1 ;j++)
+			for(int j = 0 ; j <matrix[0].length-2 ;j++)
 			{
 				matrix[i][j] = ((lines.get(i)).toCharArray())[j];
 			}
@@ -66,59 +66,35 @@ public class Main {
 			{
 				if(matrix[i][j]=='*')
 				{
-//					System.out.print(i);
-//					System.out.print("/");
-//					System.out.println(j);
 			        Vector2D v = new Vector2D(i,j);
-			        v.print();
+			        System.out.println(v.toString());
 			        vecOfVec.add(v);
 					dotindex++;
 				}
-//				else
-//				{
-//					dotindex = 0; 
-//				}
-//				if(dotindex>biggestRow)
-//				{
-//					biggestRow=dotindex;
-//				}
+
 			}
 		}
 		System.out.println(biggestRow);
-		vecOfVec.get(1).print();
-		Vector<Integer> yPoints = new Vector<Integer>();
-		int index = 1;
-		int saveSpot = -1;
-		for(int i = 1 ; i<vecOfVec.size() ; i++)
+		
+		//recursion
+		//set of cells
+		Set<Vector2D> set;
+		//list of all cells
+		List<Set<Vector2D>> list = new ArrayList<Set<Vector2D>>();
+		for(int i = 0; i<vecOfVec.size() ; i++)
 		{
-			//Last vector x and y point
-			int x = (vecOfVec.get(i-1)).x;
-			int y = (vecOfVec.get(i-1)).y;
-			yPoints.add(y);
-			if((vecOfVec.get(i).y)==(y+1) && vecOfVec.get(i).x==x)
+			set = new HashSet<Vector2D>();
+
+			surr(vecOfVec.get(i), set, matrix);
+			if(!set.isEmpty())
 			{
-				index++;
-				yPoints.add(y+1);
-			}
-			else
-			{
-				saveSpot = i;
+				list.add(set);
 			}
 		}
 		
-		System.out.println("adsf" + index);
-		System.out.println(saveSpot);
-		
-		Set<Set <String>> coll = new TreeSet<Set<String>>();
+		System.out.println(list);
 		
 		
-		Set<Vector2D> set = new HashSet<Vector2D>();
-		
-		Vector2D vect;
-				
-		vect = new Vector2D(2,1);
-		set.add(vect);
-		set.add(vect);
 		
 		
 	}
@@ -135,13 +111,28 @@ public class Main {
 			System.out.println();
 		}
 	}
-//	public static void surr()
-//	{
-//		if(matrix[i][j]!='*')
-//		{
-//			return null;
-//		}
-//	}
+
+	
+	//DFS
+	public static void surr(Vector2D v, Set<Vector2D> h, char[][] matrix)
+	{
+		if((v.x)<0 || (v.y)<0)
+			return;
+		if(matrix[v.x][v.y]!='*')
+			return;
+		h.add(v);
+		matrix[v.x][v.y] = ' ';
+		
+		Vector2D vector;
+		surr(new Vector2D(v.x,(v.y)+1),h,matrix);
+		surr(new Vector2D(v.x,(v.y)-1),h,matrix);
+		surr(new Vector2D((v.x)+1,(v.y)),h,matrix);
+		surr(new Vector2D((v.x)-1,(v.y)),h,matrix);
+		surr(new Vector2D((v.x)-1,(v.y)+1),h,matrix);
+		surr(new Vector2D((v.x)+1,(v.y)+1),h,matrix);
+		surr(new Vector2D((v.x)-1,(v.y)-1),h,matrix);
+		surr(new Vector2D((v.x)+1,(v.y)-1),h,matrix);
+	}
 	
 }
 

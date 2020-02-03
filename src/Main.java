@@ -77,9 +77,9 @@ public class Main {
 		System.out.println(biggestRow);
 		
 		//recursion
-		//set of cells
+		//set of each cell.
 		Set<Vector2D> set;
-		//list of all cells
+		//list of all cells(cells in a set).
 		List<Set<Vector2D>> list = new ArrayList<Set<Vector2D>>();
 		for(int i = 0; i<vecOfVec.size() ; i++)
 		{
@@ -94,31 +94,62 @@ public class Main {
 		
 		System.out.println(list);
 		
-		List<Set<Vector2D>> tranlated = new ArrayList<Set<Vector2D>>();
+		//Translation all points to the orgin.
+		List<Set<Vector2D>> translated = new ArrayList<Set<Vector2D>>();
+		Set<Vector2D> setTranslated = null;
 		
 		for(int i = 0 ; i<list.size() ; i++)
 		{
+			//elements are random in a set.
 			Set<Vector2D> mySet = list.get(i);
 			
-			Vector<Vector2D> v = new Vector<Vector2D>();
+			//put the cells in this so its in order.
+			Vector<Vector2D> orderedVector = new Vector<Vector2D>();
+			
 			for(Vector2D vec : mySet)
 			{
-				v.add(vec);
+				orderedVector.add(vec);
 			}
-			int smallestX = v.get(1).x;
-			int smallestY = v.get(1).y;
-			for(Vector2D v2 : v)
+			//System.out.println(orderedVector);
+			//Finding the most left top dot
+			int smallestX = orderedVector.get(0).x;
+			int smallestY = orderedVector.get(0).y;
+			for(Vector2D v2 : orderedVector)
 			{
-				if(v2.x <= smallestX && v2.y <= smallestY)
+				if(v2.x <= smallestX && v2.y<=smallestY)
 				{
 					smallestX = v2.x;
 					smallestY = v2.y;
 				}
 			}
+			//add it to Set with translated orgin is 0,0.
 			System.out.println(smallestX + "/" + smallestY);
 			
+			setTranslated = new HashSet<Vector2D>();
+			for(Vector2D v2 : orderedVector)
+			{
+//				int nX = -(smallestX);
+//				int nY = -(smallestY);
+				
+				int orginX = (v2.x) - smallestX;
+				int orginY = (v2.y) - smallestY;
+				
+				Vector2D vecs = new Vector2D(orginX,orginY);
+				setTranslated.add(vecs);
+				
+			}
+			translated.add(setTranslated);
 			
 		}
+		System.out.println("ME");
+		System.out.println(translated);
+		
+		
+		
+		
+		
+		
+		
 		
 		
 	}

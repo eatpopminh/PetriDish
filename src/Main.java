@@ -20,12 +20,11 @@ public class Main {
 		
 		
 		List<String> lines = Files.readAllLines(Paths.get("C:\\Users\\Mindy\\Desktop\\input.txt"));
+		System.out.println("Lines size: "+lines.size());
+//		for(String c : lines)
+//			System.out.println(c);
 		
-		for(String c : lines)
-			System.out.println(c);
-		
-		System.out.println("HELLO WORLD");
-		System.out.println((lines.get(4)).toCharArray()[1]);
+		//System.out.println((lines.get(4)).toCharArray()[1]);
 		
 		//Finding length of Row and Column for the 2D Matrix
 		System.out.println("ROWS: "+lines.size());
@@ -38,17 +37,39 @@ public class Main {
 				biggest = lengthOfRow;
 			}
 		}
-		System.out.println(biggest);
+		System.out.println("Colunm: "+biggest);
 		
 		//2D matrix
-		char[][] matrix = new char[lines.size()+1][biggest+1];
+		char[][] matrix = new char[lines.size()+2][biggest+2];
+		System.out.println("HELLO"+ lines.size());
+		System.out.println("HELLO"+ biggest);
+		System.out.println("matrix length: "+matrix.length);
+		System.out.println("matrix column length: " +matrix[1].length);
+		System.out.println("TESTING");
 		
-		for(int i = 0 ; i< matrix.length-1 ; i++)
+//		for(int i =0;i<biggest;i++)
+//		{
+//			System.out.println(i);
+//			System.out.println((lines.get(i)));
+//		}
+		for(int i = 0 ; i< matrix.length-2 ; i++)
 		{
-			for(int j = 0 ; j <matrix[0].length-2 ;j++)
-			{
-				matrix[i][j] = ((lines.get(i)).toCharArray())[j];
-			}
+			//System.out.println(lines.get(i).toCharArray()[0]);
+//			for(int j = 0 ; j <matrix[i].length+1 ;j++)
+//			{
+				String temp = lines.get(i);
+				char[] chartemparray = temp.toCharArray();
+				int j=0;
+				for(char a : chartemparray)
+				{
+					
+					matrix[i][j] = a;
+					j++;
+				}
+				//char chartemp = chartemparray[1];
+//				matrix[i][0] = chartemp;
+//				matrix[i][j] = ((lines.get(i)).toCharArray()[j]);
+//			}
 		}
 		
 		printMatrix(matrix);
@@ -123,7 +144,7 @@ public class Main {
 				}
 			}
 			//add it to Set with translated orgin is 0,0.
-			System.out.println(smallestX + "/" + smallestY);
+			//System.out.println(smallestX + "/" + smallestY);
 			
 			setTranslated = new HashSet<Vector2D>();
 			for(Vector2D v2 : orderedVector)
@@ -142,10 +163,15 @@ public class Main {
 			
 		}
 		System.out.println("ME");
-		System.out.println(translated);
+		//Everything in the OG matrix.
+		System.out.println("OG points on matrix: "+list);
+		//Everything translated to the orgin.
+		System.out.println("Points moved to orgin: "+translated);
 		
 		
+		Hashtable <Integer,Set> my_dict = new Hashtable<Integer,Set>();
 		
+		my_dict.put(1, translated.get(0));
 		
 		
 		

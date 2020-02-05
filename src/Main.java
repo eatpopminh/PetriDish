@@ -173,13 +173,17 @@ public class Main {
 		
 		
 		//List<Set<Vector2D>> translated = new ArrayList<Set<Vector2D>>();
-		List<List> my_CellRot = new ArrayList<List>();
-		List<Set<Vector2D>> setOfCell; //= new ArrayList<Set<Vector2D>>();
-		int alphabet = 1;
+		List[] my_CellRot = new List[26]; 
 		
-		setOfCell = new ArrayList<Set<Vector2D>>();
-		setOfCell.add(translated.get(0));
-		my_CellRot.add(0,setOfCell);		
+		//List<List> my_CellRot = new ArrayList<List>();
+		List<Set<Vector2D>> setOfCell; //= new ArrayList<Set<Vector2D>>();
+		int alphabet = 0;
+		
+//		setOfCell = new ArrayList<Set<Vector2D>>();
+//		setOfCell.add(translated.get(0));
+//		//setOfCell.add(translated.get(2));
+//		my_CellRot[0] = setOfCell;
+		//my_CellRot.add(0,setOfCell);		
 		//first
 //		setOfCell.add(translated.get(0));
 //		System.out.println(setOfCell);
@@ -191,7 +195,8 @@ public class Main {
 		
 //		setOfCell = new ArrayList<Set<Vector2D>>();
 //		setOfCell.add(translated.get(3));
-//		my_CellRot.add(1,setOfCell);
+//		//my_CellRot.add(1,setOfCell);
+//		my_CellRot[1] = setOfCell;
 		
 //		System.out.println(my_CellRot);
 //		System.out.println(my_CellRot.get(0).get(0).equals(my_CellRot.get(0).get()));
@@ -201,43 +206,68 @@ public class Main {
 		
 		//System.out.println(my_CellRot[0].get);
 		
-		System.out.println(my_CellRot.size());
-		for(Set a : translated)
+//		System.out.println(my_CellRot.size());
+//		Iterator<List> it = my_CellRot.iterator();
+		//System.out.println(my_CellRot.length);
+		//for(Set a : translated)
+		
+		
+		//putting non-dups into an array.
+		for(int h = 0;h<translated.size();h++)//6
 		{
-			for(List b : my_CellRot)
+			boolean flag = false;
+			for(int j = 0 ; j<my_CellRot.length;j++)//26
 			{
-				//System.out.println(b);
-
-				for(int i = 0 ; i<b.size() ; i++)
+				if(my_CellRot[j]!=null)
 				{
-					//System.out.println(b.get(i));
-					System.out.println("Comparing "+a+" with "+b.get(i));
-					
-					if(a.equals(b.get(i)))
+					for(int i = 0 ; i<my_CellRot[j].size() ; i++)
 					{
-						System.out.println("YES");
-						System.out.println(my_CellRot.indexOf(b));
-					}
-					else
-					{
-						System.out.println("NO");
-						setOfCell = new ArrayList<Set<Vector2D>>();
-						setOfCell.add(a);
-						my_CellRot.add(alphabet,setOfCell);
-						alphabet++;
-						
-						
+						System.out.println(translated.get(h)+"//" +my_CellRot[j].get(i));
+						if(translated.get(h).equals(my_CellRot[j].get(i)))
+						{
+							flag=true;
+							System.out.println("NOTEQUALS");
+							System.out.println(list.get(h));
+							
+						}
 					}
 				}
+			}	
+			if(flag==false)
+			{
+				setOfCell = new ArrayList<Set<Vector2D>>();
+				setOfCell.add(translated.get(h));
+				
+				my_CellRot[alphabet] = setOfCell;
+				alphabet++;
 			}
 		}
 		
+		System.out.println("END");
+		for(List a : my_CellRot)
+		{
+			System.out.println(a);
+		}
 		
+		
+//		System.out.println(translated.get(0));
+//		System.out.println(my_CellRot[0].get(1));
+//
+//			if(my_CellRot[0].get(0).equals(translated.get(0)))
+//			{
+//				System.out.println("HELLO FOO");
+//			}
+//			else
+//			{
+//				System.out.println("HELLO Fo");
+//
+//			}
 		
 		
 		
 		
 	}
+
 	public static void printMatrix(char matrix[][])
 	{
 		for(int i = 0 ; i< matrix.length ; i++)

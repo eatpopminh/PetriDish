@@ -164,14 +164,73 @@ public class Main {
 		}
 		System.out.println("ME");
 		//Everything in the OG matrix.
-		System.out.println("OG points on matrix: "+list);
+		System.out.println("OG points on matrix(list): "+list);
 		//Everything translated to the orgin.
-		System.out.println("Points moved to orgin: "+translated);
+		System.out.println("Points moved to orgin(translated): "+translated);
 		
 		
-		Hashtable <Integer,Set> my_dict = new Hashtable<Integer,Set>();
+		//Hashtable<Integer,Set<List<Set<Vector2D>>>>  my_CellRot = new Hashtable<Integer,Set<List<Set<Vector2D>>>>();
 		
-		my_dict.put(1, translated.get(0));
+		
+		//List<Set<Vector2D>> translated = new ArrayList<Set<Vector2D>>();
+		List<List> my_CellRot = new ArrayList<List>();
+		List<Set<Vector2D>> setOfCell; //= new ArrayList<Set<Vector2D>>();
+		int alphabet = 1;
+		
+		setOfCell = new ArrayList<Set<Vector2D>>();
+		setOfCell.add(translated.get(0));
+		my_CellRot.add(0,setOfCell);		
+		//first
+//		setOfCell.add(translated.get(0));
+//		System.out.println(setOfCell);
+//		//rot of first
+//		setOfCell.add(translated.get(2));
+//		System.out.println(setOfCell);
+//		
+//		my_CellRot.add(0,setOfCell);
+		
+//		setOfCell = new ArrayList<Set<Vector2D>>();
+//		setOfCell.add(translated.get(3));
+//		my_CellRot.add(1,setOfCell);
+		
+//		System.out.println(my_CellRot);
+//		System.out.println(my_CellRot.get(0).get(0).equals(my_CellRot.get(0).get()));
+//
+//		System.out.println(my_CellRot.get(0).get(1));
+		System.out.println("BOB");
+		
+		//System.out.println(my_CellRot[0].get);
+		
+		System.out.println(my_CellRot.size());
+		for(Set a : translated)
+		{
+			for(List b : my_CellRot)
+			{
+				//System.out.println(b);
+
+				for(int i = 0 ; i<b.size() ; i++)
+				{
+					//System.out.println(b.get(i));
+					System.out.println("Comparing "+a+" with "+b.get(i));
+					
+					if(a.equals(b.get(i)))
+					{
+						System.out.println("YES");
+						System.out.println(my_CellRot.indexOf(b));
+					}
+					else
+					{
+						System.out.println("NO");
+						setOfCell = new ArrayList<Set<Vector2D>>();
+						setOfCell.add(a);
+						my_CellRot.add(alphabet,setOfCell);
+						alphabet++;
+						
+						
+					}
+				}
+			}
+		}
 		
 		
 		

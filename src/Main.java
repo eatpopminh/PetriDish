@@ -172,47 +172,26 @@ public class Main {
 		//Hashtable<Integer,Set<List<Set<Vector2D>>>>  my_CellRot = new Hashtable<Integer,Set<List<Set<Vector2D>>>>();
 		
 		
-		//List<Set<Vector2D>> translated = new ArrayList<Set<Vector2D>>();
 		List[] my_CellRot = new List[26]; 
 		
-		//List<List> my_CellRot = new ArrayList<List>();
-		List<Set<Vector2D>> setOfCell; //= new ArrayList<Set<Vector2D>>();
+		
+		List<Set<Vector2D>> setOfCell; 
 		int alphabet = 0;
-		
-//		setOfCell = new ArrayList<Set<Vector2D>>();
-//		setOfCell.add(translated.get(0));
-//		//setOfCell.add(translated.get(2));
-//		my_CellRot[0] = setOfCell;
-		//my_CellRot.add(0,setOfCell);		
-		//first
-//		setOfCell.add(translated.get(0));
-//		System.out.println(setOfCell);
-//		//rot of first
-//		setOfCell.add(translated.get(2));
-//		System.out.println(setOfCell);
-//		
-//		my_CellRot.add(0,setOfCell);
-		
-//		setOfCell = new ArrayList<Set<Vector2D>>();
-//		setOfCell.add(translated.get(3));
-//		//my_CellRot.add(1,setOfCell);
-//		my_CellRot[1] = setOfCell;
-		
-//		System.out.println(my_CellRot);
-//		System.out.println(my_CellRot.get(0).get(0).equals(my_CellRot.get(0).get()));
-//
-//		System.out.println(my_CellRot.get(0).get(1));
+		char[][] newFile = new char[lines.size()+2][biggest+2];
+		for(int i = 0 ; i<lines.size()+2 ; i++)
+		{
+			for(int j = 0 ; j<biggest+2 ;j++)
+			{
+				newFile[i][j] = ' ';
+			}
+		}
+
 		System.out.println("BOB");
 		
-		//System.out.println(my_CellRot[0].get);
-		
-//		System.out.println(my_CellRot.size());
-//		Iterator<List> it = my_CellRot.iterator();
-		//System.out.println(my_CellRot.length);
-		//for(Set a : translated)
 		
 		
-		//putting non-dups into an array.
+		
+		//putting non-dups into an array. find dups and write it to file.
 		for(int h = 0;h<translated.size();h++)//6
 		{
 			boolean flag = false;
@@ -226,8 +205,10 @@ public class Main {
 						if(translated.get(h).equals(my_CellRot[j].get(i)))
 						{
 							flag=true;
-							System.out.println("NOTEQUALS");
+							System.out.println("EQUALS");
 							System.out.println(list.get(h));
+							System.out.println(j);
+							printToText(newFile,list.get(h),lines.size(),biggest,j);
 							
 						}
 					}
@@ -238,6 +219,9 @@ public class Main {
 				setOfCell = new ArrayList<Set<Vector2D>>();
 				setOfCell.add(translated.get(h));
 				
+				getAllRot(setOfCell);
+				
+				printToText(newFile,list.get(h),lines.size(),biggest,alphabet);
 				my_CellRot[alphabet] = setOfCell;
 				alphabet++;
 			}
@@ -250,22 +234,63 @@ public class Main {
 		}
 		
 		
-//		System.out.println(translated.get(0));
-//		System.out.println(my_CellRot[0].get(1));
-//
-//			if(my_CellRot[0].get(0).equals(translated.get(0)))
-//			{
-//				System.out.println("HELLO FOO");
-//			}
-//			else
-//			{
-//				System.out.println("HELLO Fo");
-//
-//			}
 		
+		for(int i = 0;i<lines.size()+2;i++)
+		{
+			for(int j = 0;j<biggest+2;j++)
+			{
+				System.out.print(newFile[i][j]);
+			}
+			System.out.println();
+		}
 		
-		
-		
+	}
+	public static void getAllRot(List<Set<Vector2D>> a)
+	{
+		 Set<Vector2D> temp = a.get(0);
+		 for(Vector2D each : temp)
+		 {
+			 System.out.println(each);
+			 nineTeen(each);
+		 }
+	}
+	public static void nineTeen(Vector2D a)
+	{
+		int x = a.x * -1;
+		int y = a.y * 1;
+		Vector2D v = new Vector2D(y,x);
+		System.out.println("Rotated "+v.toString());
+	}
+	public static void printToText(char[][] c, Set<Vector2D> a,int row, int colunm,int index)
+	{
+		char[] ch = new char[] {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R'
+				,'S','T','U','V','W','X','Y','Z'};
+		try {
+			FileWriter writer = new FileWriter("output.txt",true);
+			
+			
+			for(Vector2D b : a)
+			{
+				//System.out.println(b.x);
+				for(int i = 0 ; i<row+2 ; i++)
+				{
+					for(int j = 0 ; j<colunm+2 ;j++)
+					{
+					
+						if(i==b.x && j==b.y)
+						{
+							c[i][j] = ch[index];
+						}
+					}
+					
+				}
+			}
+			
+			writer.close();
+		}catch(IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	public static void printMatrix(char matrix[][])

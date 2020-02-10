@@ -219,9 +219,7 @@ public class Main {
 				setOfCell.add(translated.get(h));
 				//Rot
 				getAllRot(setOfCell);
-//				getAllRot2(setOfCell);
-//				getAllRot3(setOfCell);
-//				getAllRot4(setOfCell);
+				//rotTest(setOfCell);
 				printToText(newFile,list.get(h),lines.size(),biggest,alphabet);
 				my_CellRot[alphabet] = setOfCell;
 				alphabet++;
@@ -281,6 +279,7 @@ public class Main {
 //		 smallestY = 0;
 		 //System.out.println("ASASS"+set);
 		 a.add(set);
+		 
 		 Set<Vector2D> IDK = getAllRot2(set);
 		 a.add(IDK);
 		 a.add(getAllRot2(IDK));
@@ -310,6 +309,52 @@ public class Main {
 //		 System.out.println("ASASS"+set);
 		 return set;
 	}
+	public static void rotTest(List<Set<Vector2D>> a)
+	{
+		Set<Vector2D> set = new HashSet<Vector2D>(); 
+		
+		 Set<Vector2D> temp = a.get(0);
+		 int smallestX = temp.iterator().next().x;
+		 int smallestY = temp.iterator().next().y;
+		System.out.println("ASDASDASD"+temp);
+		 for(Vector2D each : temp)
+		 {
+			 Vector2D vec = rot(each);
+			 if(vec.x<=smallestX && vec.y<=smallestY)
+			 {
+				 smallestX = vec.x;
+				 smallestY = vec.y;
+			 }
+
+			 set.add(vec);
+		 }
+		 System.out.println(set);
+		System.out.println(smallestX+" and "+smallestY);
+
+		 shifting(set,smallestX,smallestY);
+
+		 a.add(set);
+		 
+		 Set<Vector2D> set2 = new HashSet<Vector2D>();
+		 smallestX = set.iterator().next().x;
+		 smallestY = set.iterator().next().y;
+		 for(Vector2D each : set)
+		 {
+			 Vector2D vec = rot(each);
+			 if(vec.x<=smallestX && vec.y<=smallestY)
+			 {
+				 smallestX = vec.x;
+				 smallestY = vec.y;
+			 }
+
+			 set2.add(vec);
+		 }
+//		 System.out.println(smallestX + " pop "+ smallestY);
+//		 System.out.println("HELLO"+set2);
+		 shifting(set2,smallestX,smallestY);
+
+		 a.add(set2);
+	}
 
 	public static Set shifting(Set<Vector2D> set, int smallestX, int smallestY)
 	{
@@ -326,22 +371,7 @@ public class Main {
 			 v.y = v.y-(smallestY);
 		 }
 		 System.out.println(set);
-//		 for(Vector2D a : set)
-//		 {
-//			 if(a.x<=smallestx)
-//			 {
-//				 smallestx=a.x;
-//			 }
-//			 if(smallestx == a.x && a.y<=smallesty)
-//			 {
-//				 smallesty=a.y;
-//			 }
-//		 }
-//		 for(Vector2D b :set)
-//		 {
-//			 b.x = b.x + (smallestx);
-//			 b.y = b.y + (smallesty);
-//		 }
+
 		 return set;
 		
 	}

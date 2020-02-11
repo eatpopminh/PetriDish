@@ -135,7 +135,7 @@ public class Main {
 			//Finding the most left top dot
 			int smallestX = orderedVector.get(0).x;
 			int smallestY = orderedVector.get(0).y;
-			System.out.println(smallestX+"COMEON"+ smallestY);
+			//System.out.println(smallestX+"COMEON"+ smallestY);
 			for(Vector2D v2 : orderedVector)
 			{
 				if(v2.x <= smallestX )//&& v2.y<=smallestY)
@@ -144,7 +144,7 @@ public class Main {
 					smallestY = v2.y;
 				}
 			}
-			System.out.println("smallestX"+smallestX);
+			//System.out.println("smallestX"+smallestX);
 			for(Vector2D v2 : orderedVector)
 			{
 				if((v2.x==smallestX) && v2.y<= smallestY )//&& v2.y<=smallestY)
@@ -153,8 +153,8 @@ public class Main {
 				}
 			}
 			//add it to Set with translated orgin is 0,0.
-			System.out.println(smallestX + "/" + smallestY);
-			System.out.println(orderedVector);
+//			System.out.println(smallestX + "/" + smallestY);
+//			System.out.println(orderedVector);
 			setTranslated = new HashSet<Vector2D>();
 			for(Vector2D v2 : orderedVector)
 			{
@@ -162,7 +162,7 @@ public class Main {
 				int orginY = v2.y - smallestY;
 				
 				Vector2D vecs = new Vector2D(orginX,orginY);
-				System.out.println(vecs.toString());
+				//System.out.println(vecs.toString());
 				setTranslated.add(vecs);
 				
 			}
@@ -227,15 +227,21 @@ public class Main {
 				setOfCell.add(translated.get(h));
 				
 				//Rot
-				//getAllRot(setOfCell);
-				//rotTest(setOfCell);
-				setOfCell = DEGREE(setOfCell);
-				setOfCell = DEGREE2(setOfCell);
-				setOfCell = DEGREE3(setOfCell);
-//				for(int i = 0 ; i<my_CellRot.length ; i++)
-//				{
-//					System.out.println(my_CellRot[i]);
-//				}
+				
+				DEGREE(setOfCell,0);
+				DEGREE2(setOfCell,0);
+				DEGREE3(setOfCell,0);
+				 
+				mirrorY(setOfCell);
+				DEGREE(setOfCell,setOfCell.size()-1);
+				DEGREE2(setOfCell,setOfCell.size()-1);
+				DEGREE3(setOfCell,setOfCell.size()-1);
+				
+				mirrorX(setOfCell);
+				DEGREE(setOfCell,setOfCell.size()-1);
+				DEGREE2(setOfCell,setOfCell.size()-1);
+				DEGREE3(setOfCell,setOfCell.size()-1);
+				
 				printToText(newFile,list.get(h),lines.size(),biggest,alphabet);
 				my_CellRot.add(setOfCell);
 				alphabet++;
@@ -290,12 +296,36 @@ public class Main {
 		}
 		
 	}
-	public static List<Set<Vector2D>> DEGREE(List<Set<Vector2D>> a)
+	public static void mirrorX(List<Set<Vector2D>> a)
+	{
+		Set<Vector2D> Vector = new HashSet<Vector2D>();
+		Vector2D v ;
+		for(Vector2D eachV:a.get(0))
+		{
+			v = new Vector2D((eachV.x),-(eachV.y));
+			Vector.add(v);
+		}
+		Vector = makeTopLeftOrgin(Vector);
+		a.add(Vector);
+	}
+	public static void mirrorY(List<Set<Vector2D>> a)
+	{
+		Set<Vector2D> Vector = new HashSet<Vector2D>();
+		Vector2D v ;
+		for(Vector2D eachV:a.get(0))
+		{
+			v = new Vector2D(-(eachV.x),eachV.y);
+			Vector.add(v);
+		}
+		Vector = makeTopLeftOrgin(Vector);
+		a.add(Vector);
+	}
+	public static List<Set<Vector2D>> DEGREE(List<Set<Vector2D>> a, int index)
 	{
 		Set<Vector2D> oneObject;
 		oneObject = new HashSet<Vector2D>();
 		
-		for(Vector2D eachVector : a.get(0))
+		for(Vector2D eachVector : a.get(index))
 		{
 			int temp = eachVector.x;
 			Vector2D v = new Vector2D(-(eachVector.y),temp);
@@ -310,11 +340,11 @@ public class Main {
 		//System.out.println("PUSSY"+a);
 		return a;
 	}
-	public static List<Set<Vector2D>> DEGREE2(List<Set<Vector2D>> a)
+	public static List<Set<Vector2D>> DEGREE2(List<Set<Vector2D>> a,int index)
 	{
 		Set<Vector2D> oneObject;
 		oneObject = new HashSet<Vector2D>();
-		for(Vector2D eachVector : a.get(0))
+		for(Vector2D eachVector : a.get(index))
 		{
 			int temp = eachVector.x;
 			Vector2D v = new Vector2D(-(eachVector.y),temp);
@@ -333,11 +363,11 @@ public class Main {
 		a.add(oneObject);
 		return a;
 	}
-	public static List<Set<Vector2D>> DEGREE3(List<Set<Vector2D>> a)
+	public static List<Set<Vector2D>> DEGREE3(List<Set<Vector2D>> a,int index)
 	{
 		Set<Vector2D> oneObject;
 		oneObject = new HashSet<Vector2D>();
-		for(Vector2D eachVector : a.get(0))
+		for(Vector2D eachVector : a.get(index))
 		{
 			int temp = eachVector.x;
 			Vector2D v = new Vector2D(-(eachVector.y),temp);
@@ -360,7 +390,7 @@ public class Main {
 			oneObject3.add(v);
 		}
 
-		oneObject = makeTopLeftOrgin(oneObject3);
+		oneObject3 = makeTopLeftOrgin(oneObject3);
 		a.add(oneObject3);
 		return a;
 	}
@@ -541,8 +571,8 @@ public class Main {
 	}
 	public static void printToText(char[][] c, Set<Vector2D> a,int row, int colunm,int index)
 	{
-		char[] ch = new char[] {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R'
-				,'S','T','U','V','W','X','Y','Z'};
+		char[] ch = new char[] {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r'
+				,'s','t','u','v','w','x','y','z'};
 		try {
 			FileWriter writer = new FileWriter("output.txt",true);
 			

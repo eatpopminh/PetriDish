@@ -135,27 +135,34 @@ public class Main {
 			//Finding the most left top dot
 			int smallestX = orderedVector.get(0).x;
 			int smallestY = orderedVector.get(0).y;
+			System.out.println(smallestX+"COMEON"+ smallestY);
 			for(Vector2D v2 : orderedVector)
 			{
-				if(v2.x <= smallestX && v2.y<=smallestY)
+				if(v2.x <= smallestX )//&& v2.y<=smallestY)
 				{
 					smallestX = v2.x;
 					smallestY = v2.y;
 				}
 			}
+			System.out.println("smallestX"+smallestX);
+			for(Vector2D v2 : orderedVector)
+			{
+				if((v2.x==smallestX) && v2.y<= smallestY )//&& v2.y<=smallestY)
+				{
+					smallestY = v2.y;
+				}
+			}
 			//add it to Set with translated orgin is 0,0.
-			//System.out.println(smallestX + "/" + smallestY);
-			
+			System.out.println(smallestX + "/" + smallestY);
+			System.out.println(orderedVector);
 			setTranslated = new HashSet<Vector2D>();
 			for(Vector2D v2 : orderedVector)
 			{
-//				int nX = -(smallestX);
-//				int nY = -(smallestY);
-				
-				int orginX = (v2.x) - smallestX;
-				int orginY = (v2.y) - smallestY;
+				int orginX = v2.x - smallestX;
+				int orginY = v2.y - smallestY;
 				
 				Vector2D vecs = new Vector2D(orginX,orginY);
+				System.out.println(vecs.toString());
 				setTranslated.add(vecs);
 				
 			}
@@ -171,8 +178,8 @@ public class Main {
 		//Hashtable<Integer,Set<List<Set<Vector2D>>>>  my_CellRot = new Hashtable<Integer,Set<List<Set<Vector2D>>>>();
 		
 		
-		List[] my_CellRot = new List[26]; 
-		
+		//List[] my_CellRot = new List[26]; 
+		List<List<Set<Vector2D>>> my_CellRot = new ArrayList<List<Set<Vector2D>>>();
 		
 		List<Set<Vector2D>> setOfCell; 
 		int alphabet = 0;
@@ -194,34 +201,43 @@ public class Main {
 		for(int h = 0;h<translated.size();h++)//6
 		{
 			boolean flag = false;
-			for(int j = 0 ; j<my_CellRot.length;j++)//26
+			for(int j = 0 ; j<my_CellRot.size();j++)//26
 			{
-				if(my_CellRot[j]!=null)
-				{
-					for(int i = 0 ; i<my_CellRot[j].size() ; i++)
+//				if(my_CellRot.get(j)!=null)
+//				{
+					for(int i = 0 ; i<my_CellRot.get(j).size() ; i++)
 					{
 						//System.out.println(translated.get(h)+"//" +my_CellRot[j].get(i));
-						if(translated.get(h).equals(my_CellRot[j].get(i)))
+						if(translated.get(h).equals((my_CellRot.get(j)).get(i)))
 						{
 							flag=true;
-//							System.out.println("EQUALS");
+							//System.out.println("EQUALS");
 //							System.out.println(list.get(h));
 							//System.out.println(j);
 							printToText(newFile,list.get(h),lines.size(),biggest,j);
-							
-						}
-					}
-				}
+							i=my_CellRot.get(j).size();
+							j=my_CellRot.size()-1;
+						}	
+					//}
+				}	
 			}	
 			if(flag==false)
 			{
 				setOfCell = new ArrayList<Set<Vector2D>>();
 				setOfCell.add(translated.get(h));
+				
 				//Rot
-				getAllRot(setOfCell);
+				//getAllRot(setOfCell);
 				//rotTest(setOfCell);
+				setOfCell = DEGREE(setOfCell);
+				setOfCell = DEGREE2(setOfCell);
+				setOfCell = DEGREE3(setOfCell);
+//				for(int i = 0 ; i<my_CellRot.length ; i++)
+//				{
+//					System.out.println(my_CellRot[i]);
+//				}
 				printToText(newFile,list.get(h),lines.size(),biggest,alphabet);
-				my_CellRot[alphabet] = setOfCell;
+				my_CellRot.add(setOfCell);
 				alphabet++;
 			}
 		}
@@ -244,7 +260,138 @@ public class Main {
 		}
 		
 	}
+	public static void shiftingToPos(Set<Vector2D> oneObject)
+	{
+		int smallestX = oneObject.iterator().next().x;
+		int smallestY = oneObject.iterator().next().y;
+		for(Vector2D eachVector : oneObject)
+		{
+			if(eachVector.x<=smallestX && eachVector.y<=smallestY)
+			{
+				smallestX = eachVector.x;
+				smallestY = eachVector.y;
+			}
+		}
+//		for(Vector2D eachVector : oneObject)
+//		{
+//			if(eachVector.x ==smallestX && eachVector.y<=smallestY )//&& eachVector.y<=smallestY)
+//			{
+//				//smallestX = eachVector.x;
+//				smallestY = eachVector.y;
+//			}
+//		}
+		
+		
+		//System.out.println(smallestX + " and "+ smallestY);
+		for(Vector2D eachVector : oneObject)
+		{
+			eachVector.x = smallestX - eachVector.x;// - (smallestX);
+			eachVector.y = smallestY - eachVector.y;// - (smallestY);
+		}
+		
+	}
+	public static List<Set<Vector2D>> DEGREE(List<Set<Vector2D>> a)
+	{
+		Set<Vector2D> oneObject;
+		oneObject = new HashSet<Vector2D>();
+		
+		for(Vector2D eachVector : a.get(0))
+		{
+			int temp = eachVector.x;
+			Vector2D v = new Vector2D(-(eachVector.y),temp);
+			oneObject.add(v);
+		}
+		
+		//Set<Vector2D> oneObjectTemp = oneObject;
+		oneObject = makeTopLeftOrgin(oneObject);
+		//shiftingToPos(oneObject);
+//		oneObject = makeTopLeftOrgin(oneObject);
+		a.add(oneObject);
+		//System.out.println("PUSSY"+a);
+		return a;
+	}
+	public static List<Set<Vector2D>> DEGREE2(List<Set<Vector2D>> a)
+	{
+		Set<Vector2D> oneObject;
+		oneObject = new HashSet<Vector2D>();
+		for(Vector2D eachVector : a.get(0))
+		{
+			int temp = eachVector.x;
+			Vector2D v = new Vector2D(-(eachVector.y),temp);
+			oneObject.add(v);
+		}
+		Set<Vector2D> oneObject2;
+		oneObject2 = new HashSet<Vector2D>();
+		for(Vector2D eachVector : oneObject)
+		{
+			int temp = eachVector.x;
+			Vector2D v = new Vector2D(-(eachVector.y),temp);
+			oneObject2.add(v);
+		}
+
+		oneObject = makeTopLeftOrgin(oneObject2);
+		a.add(oneObject);
+		return a;
+	}
+	public static List<Set<Vector2D>> DEGREE3(List<Set<Vector2D>> a)
+	{
+		Set<Vector2D> oneObject;
+		oneObject = new HashSet<Vector2D>();
+		for(Vector2D eachVector : a.get(0))
+		{
+			int temp = eachVector.x;
+			Vector2D v = new Vector2D(-(eachVector.y),temp);
+			oneObject.add(v);
+		}
+		Set<Vector2D> oneObject2;
+		oneObject2 = new HashSet<Vector2D>();
+		for(Vector2D eachVector : oneObject)
+		{
+			int temp = eachVector.x;
+			Vector2D v = new Vector2D(-(eachVector.y),temp);
+			oneObject2.add(v);
+		}
+		Set<Vector2D> oneObject3;
+		oneObject3 = new HashSet<Vector2D>();
+		for(Vector2D eachVector : oneObject2)
+		{
+			int temp = eachVector.x;
+			Vector2D v = new Vector2D(-(eachVector.y),temp);
+			oneObject3.add(v);
+		}
+
+		oneObject = makeTopLeftOrgin(oneObject3);
+		a.add(oneObject3);
+		return a;
+	}
 	
+	public static Set<Vector2D> makeTopLeftOrgin(Set<Vector2D> a)
+	{
+		int smallestX = a.iterator().next().x;
+		int smallestY = a.iterator().next().y;
+		for(Vector2D v : a)
+		{
+			if(v.x<=smallestX )//&& v.y<=smallestY)
+			{
+				smallestX = v.x;
+				smallestY = v.y;
+			}
+		}
+		for(Vector2D v: a)
+		{
+			if(v.x == smallestX && v.y<=smallestY)
+			{
+				smallestY = v.y;
+			}
+		}
+		for(Vector2D v : a)
+		{
+			v.x = v.x - (smallestX);
+			v.y = v.y - (smallestY);
+		}
+		return a;
+		
+	}
 	public static void getAllRot(List<Set<Vector2D>> a)
 	{
 		Set<Vector2D> set = new HashSet<Vector2D>(); 

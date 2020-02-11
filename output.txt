@@ -1,0 +1,22 @@
+           aaaa    aaaa          a                     
+            aa      aa         aa                      
+           a       a          aaaa                     
+                                                       
+ a a      bb    cc                                     
+  aa      bbb  cccc                                    
+  aa      bb     c   cc                                
+   a                cccc                               
+                      c                                
+aaaa                                                   
+ aa                                                    
+a       a        a                                     
+        aa      aa                                     
+        aa      aa                                     
+        a a    a a                                     
+                                                       
+                                                       
+ddd   d                                                
+      d                                                
+      d                                                
+                                                       
+                                                       

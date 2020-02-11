@@ -253,18 +253,24 @@ public class Main {
 		{
 			System.out.println(a);
 		}
-		
-		
-		
+		FileWriter write = new FileWriter("output.txt");
+
+		String string="";
 		for(int i = 0;i<lines.size()+2;i++)
 		{
 			for(int l = 0;l<biggest+2;l++)
 			{
-				System.out.print(newFile[i][l]);
+				//System.out.print(newFile[i][l]);
+				string+=newFile[i][l];
+				
 			}
-			System.out.println();
+			string+="\n";
+			System.out.print(string);
+			write.write(string);
+			string="";
 		}
-		
+
+		write.close();
 	}
 	public static void shiftingToPos(Set<Vector2D> oneObject)
 	{
@@ -278,16 +284,7 @@ public class Main {
 				smallestY = eachVector.y;
 			}
 		}
-//		for(Vector2D eachVector : oneObject)
-//		{
-//			if(eachVector.x ==smallestX && eachVector.y<=smallestY )//&& eachVector.y<=smallestY)
-//			{
-//				//smallestX = eachVector.x;
-//				smallestY = eachVector.y;
-//			}
-//		}
-		
-		
+
 		//System.out.println(smallestX + " and "+ smallestY);
 		for(Vector2D eachVector : oneObject)
 		{
@@ -573,10 +570,8 @@ public class Main {
 	{
 		char[] ch = new char[] {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r'
 				,'s','t','u','v','w','x','y','z'};
-		try {
-			FileWriter writer = new FileWriter("output.txt",true);
-			
-			
+//		try {
+			//FileWriter writer = new FileWriter("output.txt",true);
 			for(Vector2D b : a)
 			{
 				//System.out.println(b.x);
@@ -594,11 +589,11 @@ public class Main {
 				}
 			}
 			
-			writer.close();
-		}catch(IOException e)
-		{
-			e.printStackTrace();
-		}
+			//writer.close();
+//		}catch(IOException e)
+//		{
+//			e.printStackTrace();
+//		}
 	}
 
 	public static void printMatrix(char matrix[][])

@@ -6,9 +6,9 @@
   aa      bbb  cccc                                    
   aa      bb     c   cc                                
    a                cccc                               
-                      c                                
-aaaa                                                   
- aa                                                    
+                      c     b                          
+aaaa                       bbb                         
+ aa                        bbb                         
 a       a        a                                     
         aa      aa                                     
         aa      aa                                     

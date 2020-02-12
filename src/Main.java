@@ -7,27 +7,15 @@ public class Main {
 
 	public static void main(String[] args) throws Exception{
 		// TODO Auto-generated method stub
-		File file = new File("C:\\Users\\Minh\\Desktop\\EFT.txt");
 		
-		 //BufferedReader br = new BufferedReader(new FileReader(file)); 
-//		Scanner sc = new Scanner(file); 
-//		if(sc.hasNextLine())
-//		{
-//			//System.out.println(sc.nextLine());
-//			char[] ch =  (sc.nextLine()).toCharArray();
-//			
-//		}
-		
-		
+		//Reading the text.
 		List<String> lines = Files.readAllLines(Paths.get("C:\\Users\\Mindy\\Desktop\\input.txt"));
-		//System.out.println("Lines size: "+lines.size());
-//		for(String c : lines)
-//			System.out.println(c);
 		
 		//System.out.println((lines.get(4)).toCharArray()[1]);
 		
 		//Finding length of Row and Column for the 2D Matrix
 		//System.out.println("ROWS: "+lines.size());
+		//Get each input into a matrix.
 		int biggest = 0;
 		for(int i = 0 ;i<lines.size(); i++)
 		{
@@ -54,9 +42,6 @@ public class Main {
 //		}
 		for(int i = 0 ; i< matrix.length-2 ; i++)
 		{
-			//System.out.println(lines.get(i).toCharArray()[0]);
-//			for(int j = 0 ; j <matrix[i].length+1 ;j++)
-//			{
 				String temp = lines.get(i);
 				char[] chartemparray = temp.toCharArray();
 				int j=0;
@@ -69,7 +54,6 @@ public class Main {
 				//char chartemp = chartemparray[1];
 //				matrix[i][0] = chartemp;
 //				matrix[i][j] = ((lines.get(i)).toCharArray()[j]);
-//			}
 		}
 		
 		//printMatrix(matrix);
@@ -174,9 +158,7 @@ public class Main {
 		System.out.println("OG points on matrix(list): "+list);
 		//Everything translated to the orgin.
 		System.out.println("Points moved to orgin(translated): "+translated);
-		
-		//Hashtable<Integer,Set<List<Set<Vector2D>>>>  my_CellRot = new Hashtable<Integer,Set<List<Set<Vector2D>>>>();
-		
+				
 		
 		//List[] my_CellRot = new List[26]; 
 		List<List<Set<Vector2D>>> my_CellRot = new ArrayList<List<Set<Vector2D>>>();
@@ -193,9 +175,7 @@ public class Main {
 		}
 
 		System.out.println("BOB");
-		
-		
-		
+			
 		
 		//putting non-dups into an array. find dups and write it to file.
 		for(int h = 0;h<translated.size();h++)//6
@@ -203,8 +183,6 @@ public class Main {
 			boolean flag = false;
 			for(int j = 0 ; j<my_CellRot.size();j++)//26
 			{
-//				if(my_CellRot.get(j)!=null)
-//				{
 					for(int i = 0 ; i<my_CellRot.get(j).size() ; i++)
 					{
 						//System.out.println(translated.get(h)+"//" +my_CellRot[j].get(i));
@@ -218,7 +196,6 @@ public class Main {
 							i=my_CellRot.get(j).size();
 							j=my_CellRot.size()-1;
 						}	
-					//}
 				}	
 			}	
 			if(flag==false)
@@ -226,8 +203,7 @@ public class Main {
 				setOfCell = new ArrayList<Set<Vector2D>>();
 				setOfCell.add(translated.get(h));
 				
-				//Rot
-				
+				//Rotation and Mirrors
 				DEGREE(setOfCell,0);
 				DEGREE2(setOfCell,0);
 				DEGREE3(setOfCell,0);
@@ -262,14 +238,12 @@ public class Main {
 			{
 				//System.out.print(newFile[i][l]);
 				string+=newFile[i][l];
-				
 			}
 			string+="\n";
 			System.out.print(string);
 			write.write(string);
 			string="";
 		}
-
 		write.close();
 	}
 	public static void shiftingToPos(Set<Vector2D> oneObject)
@@ -418,153 +392,6 @@ public class Main {
 		}
 		return a;
 		
-	}
-	public static void getAllRot(List<Set<Vector2D>> a)
-	{
-		Set<Vector2D> set = new HashSet<Vector2D>(); 
-		
-		 Set<Vector2D> temp = a.get(0);
-		 int smallestX = temp.iterator().next().x;
-		 int smallestY = temp.iterator().next().y;
-
-		 for(Vector2D each : temp)
-		 {
-			 
-			 //System.out.println(each);
-			 Vector2D vec = rot(each);
-			 //vec = rot(vec);
-//			 System.out.println("HIHIHIHIIHIHIHIHIHIIH");
-			 System.out.println("VECTOR: "+ vec);
-			 if(vec.x<=smallestX && vec.y<=smallestY)
-			 {
-				 smallestX = vec.x;
-				 smallestY = vec.y;
-			 }
-//			 if(vec.x==smallestX && vec.y<=smallestY)
-//			 {
-//				 smallestY = vec.y;
-//			 }
-			 set.add(vec);
-		 }
-		 System.out.println(smallestX+" "+smallestY);
-//		 System.out.println(set);
-		 shifting(set,smallestX,smallestY);
-//		 smallestX = 0;
-//		 smallestY = 0;
-		 //System.out.println("ASASS"+set);
-		 a.add(set);
-		 
-		 Set<Vector2D> IDK = getAllRot2(set);
-		 a.add(IDK);
-		 a.add(getAllRot2(IDK));
-	}
-	public static Set<Vector2D> getAllRot2(Set<Vector2D> temp)
-	{
-		Set<Vector2D> set = new HashSet<Vector2D>(); 
-
-		 int smallestX = temp.iterator().next().x;
-		 int smallestY = temp.iterator().next().y;
-		 for(Vector2D each : temp)
-		 {
-			 System.out.println(each);
-			 Vector2D vec = rot2(each);
-			 if(vec.x<=smallestX && vec.y<=smallestY)
-			 {
-				 smallestX = vec.x;
-				 smallestY = vec.y;
-			 }
-			 set.add(vec);
-		 }
-		 //System.out.println("rotated:"+set);
-		
-		shifting(set,smallestX,smallestY);
-		 
-//		 System.out.println("new set:"+ set);
-//		 System.out.println("ASASS"+set);
-		 return set;
-	}
-	public static void rotTest(List<Set<Vector2D>> a)
-	{
-		Set<Vector2D> set = new HashSet<Vector2D>(); 
-		
-		 Set<Vector2D> temp = a.get(0);
-		 int smallestX = temp.iterator().next().x;
-		 int smallestY = temp.iterator().next().y;
-		System.out.println("ASDASDASD"+temp);
-		 for(Vector2D each : temp)
-		 {
-			 Vector2D vec = rot(each);
-			 if(vec.x<=smallestX && vec.y<=smallestY)
-			 {
-				 smallestX = vec.x;
-				 smallestY = vec.y;
-			 }
-
-			 set.add(vec);
-		 }
-		 System.out.println(set);
-		System.out.println(smallestX+" and "+smallestY);
-
-		 shifting(set,smallestX,smallestY);
-
-		 a.add(set);
-		 
-		 Set<Vector2D> set2 = new HashSet<Vector2D>();
-		 smallestX = set.iterator().next().x;
-		 smallestY = set.iterator().next().y;
-		 for(Vector2D each : set)
-		 {
-			 Vector2D vec = rot(each);
-			 if(vec.x<=smallestX && vec.y<=smallestY)
-			 {
-				 smallestX = vec.x;
-				 smallestY = vec.y;
-			 }
-
-			 set2.add(vec);
-		 }
-//		 System.out.println(smallestX + " pop "+ smallestY);
-//		 System.out.println("HELLO"+set2);
-		 shifting(set2,smallestX,smallestY);
-
-		 a.add(set2);
-	}
-
-	public static Set shifting(Set<Vector2D> set, int smallestX, int smallestY)
-	{
-		System.out.println(set);
-		 //shifting 
-		 int smallestx=set.iterator().next().x;
-		 int smallesty=set.iterator().next().y;
-		 for(Vector2D v : set)
-		 {
-			 v.x = v.x-(smallestX);
-		 }
-		 for(Vector2D v : set)
-		 {
-			 v.y = v.y-(smallestY);
-		 }
-		 System.out.println(set);
-
-		 return set;
-		
-	}
-	public static Vector2D rot(Vector2D a)
-	{
-		int x = a.x * -1;
-		int y = a.y * 1;
-		Vector2D v = new Vector2D(y,x);
-		//System.out.println("Rotated "+v.toString());
-		return v;
-	}
-	public static Vector2D rot2(Vector2D a)
-	{
-		int x = a.x * -1;
-		int y = a.y * -1;
-		Vector2D v = new Vector2D(y,x);
-		
-		System.out.println("Rotated "+v.toString());
-		return v;
 	}
 	public static void printToText(char[][] c, Set<Vector2D> a,int row, int colunm,int index)
 	{

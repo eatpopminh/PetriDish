@@ -1,22 +1,29 @@
-           aaaa    aaaa          a                     
-            aa      aa         aa                      
-           a       a          aaaa                     
-                                                       
- a a      bb    cc                                     
-  aa      bbb  cccc                                    
-  aa      bb     c   cc                                
-   a                cccc                               
-                      c     b                          
-aaaa                       bbb                         
- aa                        bbb                         
-a       a        a                                     
-        aa      aa                                     
-        aa      aa                                     
-        a a    a a                                     
-                                                       
-                                                       
-ddd   d                                                
-      d                                                
-      d                                                
-                                                       
-                                                       
+            aa            
+           aaa            
+            a             
+            a             
+                          
+        a    bb           
+        a     bbb         
+   aa  aaa   bb           
+ aaaa   aa      bb    c   
+   a          bbb    cc   
+     bb         bb   cc   
+   bbb  c    c      c  c  
+     bb  ccc cc  bb       
+         cc  cc   bbb   aa
+   bb   c   c  c bb   aaaa
+    bbb                 a 
+   bb          c    c     
+ a    bb       cc    ccc  
+ a     bbb     cc    cc   
+aaa   bb      c  c  c     
+aa        c               
+     aa    ccc            
+     aaaa  cc   b         
+      a   c     b         
+               bbb        
+             c b b        
+          ccc             
+           cc             
+             c            

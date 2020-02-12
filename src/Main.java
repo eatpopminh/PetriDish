@@ -9,7 +9,7 @@ public class Main {
 		// TODO Auto-generated method stub
 		
 		//Reading the text.
-		List<String> lines = Files.readAllLines(Paths.get("C:\\Users\\Mindy\\Desktop\\input.txt"));
+		List<String> lines = Files.readAllLines(Paths.get("input.txt"));
 		
 		//System.out.println((lines.get(4)).toCharArray()[1]);
 		
@@ -232,14 +232,17 @@ public class Main {
 		FileWriter write = new FileWriter("output.txt");
 
 		String string="";
-		for(int i = 0;i<lines.size()+2;i++)
+		for(int i = 0;i<lines.size();i++)
 		{
-			for(int l = 0;l<biggest+2;l++)
+			for(int l = 0;l<biggest;l++)
 			{
 				//System.out.print(newFile[i][l]);
 				string+=newFile[i][l];
 			}
-			string+="\n";
+			if(i<=lines.size()-2)
+			{
+				string+="\n";
+			}
 			System.out.print(string);
 			write.write(string);
 			string="";

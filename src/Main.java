@@ -441,7 +441,7 @@ public class Main {
 	}
 
 	
-	//DFS
+	//BFS
 	public static void surr(Vector2D v, Set<Vector2D> h, char[][] matrix)
 	{
 		if((v.x)<0 || (v.y)<0)
